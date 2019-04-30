@@ -1,12 +1,11 @@
 class Panda {
-  PVector pos, vel, acc;
+  PVector pos, vel;
   color earColor;
   float size;
 
-  Panda(PVector initPos, PVector initVel, PVector initAcc, float initSize) {
+  Panda(PVector initPos, PVector initVel, float initSize) {
     pos = initPos;
     vel = initVel;
-    acc = initAcc;
     size = initSize;
   }
 
@@ -57,30 +56,50 @@ class Panda {
 
     popMatrix();
   }
-  
+
   void update() {
     earColor = color(pos.x*0.255, pos.y*0.255, (pos.x + pos.y)/2);
-    vel.add(acc);
     pos.add(vel);
-    acc.mult(0);
-    
+  }
+
+  void checkPandaCollision(Panda other) {
+    PVector centr = PVector.sub(other.pos, pos);
+    float centrMag = centr.mag();
+    centrMag -= other.size/2;
+    float minDist = size/2;
+
+    if (centrMag < minDist) {
+      PVector d = vel.copy();
+      PVector comp = centr.copy();
+      comp.setMag(centrMag-minDist);
+      pos.add(comp);
+      vel = comp.copy().div(10);
+      update();
+      PVector a = centr.copy();
+      a.normalize();
+      a.setMag(PVector.dot(d, centr.normalize()));
+      PVector b = d.sub(a);
+      vel = b;
+    }
+  }
+
+  void checkWallCollision() {
     if (pos.x > width-size/2) {
       vel.x *= -1;
       pos.x = width-size/2;
     }
-    
+
     if (pos.x < size/2) {
       vel.x *= -1;
       pos.x = size/2;
     }
-    
+
     if (pos.y < size/2) {
       vel.y *= -1;
       pos.y = size/2;
     }
-    
+
     if (pos.y > height-size/2) {
-      // dampens when hitting the bottom of the window
       vel.y *= -1;
       pos.y = height-size/2;
     }

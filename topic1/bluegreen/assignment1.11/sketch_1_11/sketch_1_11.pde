@@ -1,10 +1,12 @@
 Panda[] pandas;
+int pandaCount;
 
 void setup() {
   fullScreen();
-  pandas = new Panda[20];
+  pandaCount = 50;
+  pandas = new Panda[pandaCount];
   for (int i = 0; i < pandas.length; i++) {
-   pandas[i] = new Panda(new PVector(width/2, height/2), new PVector(random(-3, 3), random(-3, 3)), new PVector(0, 0), random(50, 100));
+   pandas[i] = new Panda(new PVector(random(100, width-100), random(100, height-100)), new PVector(random(-2, 2), random(-2, 2)), random(50, 100));
   }
 }
 
@@ -13,5 +15,22 @@ void draw() {
   for (Panda panda : pandas) {
     panda.display();
     panda.update();
+    panda.checkWallCollision();
+    for (Panda otherPanda : pandas) {
+      if (otherPanda != panda) {
+        panda.checkPandaCollision(otherPanda);
+      }
+    }
+  }
+}
+
+void mousePressed() {
+  reset();
+}
+
+void reset() {
+  pandas = new Panda[pandaCount];
+  for (int i = 0; i < pandas.length; i++) {
+   pandas[i] = new Panda(new PVector(random(100, width-100), random(100, height-100)), new PVector(random(-2, 2), random(-2, 2)), random(50, 100));
   }
 }
