@@ -3,13 +3,14 @@ class Panda {
   color earColor;
   float size;
 
+  // Initialize panda
   Panda(PVector initPos, PVector initVel, float initSize) {
     pos = initPos;
     vel = initVel;
     size = initSize;
   }
 
-  // Draw the panda
+  // Draw the panda.
   void display() {   
     ellipseMode(CENTER);
     rectMode(CENTER);
@@ -58,12 +59,15 @@ class Panda {
     popMatrix();
   }
   
-  // 
+  // change the ear colour depending on the panda's position, move the panda and check for wall collisions.
   void update() {
     earColor = color(pos.x*0.255, pos.y*0.255, (pos.x + pos.y)/2);
     pos.add(vel);
-    acc.mult(0);
-    
+    checkWallCollision();
+  }
+  
+  // make the panda bounce off of walls.
+  void checkWallCollision() {
     if (pos.x > width-size/2) {
       vel.x *= -1;
       pos.x = width-size/2;

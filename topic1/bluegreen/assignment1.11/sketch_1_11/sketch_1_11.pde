@@ -1,3 +1,8 @@
+/*
+ * Spawns pandas at random positions on the screen with random velocities in random directions that bounce off of eachother.
+ * To create visual interest the colours of the panda's ears change depending on their position. It is also possible to 
+ * click the screen to spawn a new array of pandas.
+ */
 Panda[] pandas;
 int pandaCount;
 

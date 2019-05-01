@@ -1,5 +1,5 @@
 /*
- * spawns 20 panda creature at the center of the screen with random velocity vectors in random directions.
+ * spawns 20 panda creatures at the center of the screen with random velocity vectors in random directions.
  */
 Panda[] pandas;
 

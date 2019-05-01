@@ -1,5 +1,5 @@
+// returns the sum of all multiples of 3 and 5 below 1000. multiple of 3 and 5 at the same time are not counted twice.
 void setup() {
-  size(200,200);
   int sum = 0;
   for(int i = 0; i < ceil(1000/3);i++) {
     int curNum = 3*i;
@@ -9,5 +9,6 @@ void setup() {
   for(int i = 0; i < ceil(1000/5);i++) {
     sum+=5*i;
   }
-  text(sum,0,10);
+  println(sum);
+  exit();
 }
