@@ -1,3 +1,7 @@
+/*
+ * Generates an array of 500 random values between 0 and 100 
+ * and counts how many of these values are above 50.
+ */
 int[] numbers;
 
 void setup() {  
@@ -8,6 +12,7 @@ void setup() {
   }
   // print which integers are above 50
   println(count(numbers));
+  exit();
 }
 
 // counts integers above 50 in array

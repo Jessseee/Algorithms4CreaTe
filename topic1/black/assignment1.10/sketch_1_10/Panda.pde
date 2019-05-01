@@ -3,18 +3,18 @@ class Panda {
   color earColor;
   float size;
 
-  Panda(PVector initPos, PVector initVel, PVector initAcc, float initSize) {
+  Panda(PVector initPos, PVector initVel, float initSize) {
     pos = initPos;
     vel = initVel;
-    acc = initAcc;
     size = initSize;
   }
 
+  // Draw the panda
   void display() {   
     ellipseMode(CENTER);
     rectMode(CENTER);
     pushMatrix();
-
+    
     strokeWeight(size * 0.020);
 
     //ear
@@ -58,9 +58,9 @@ class Panda {
     popMatrix();
   }
   
+  // 
   void update() {
     earColor = color(pos.x*0.255, pos.y*0.255, (pos.x + pos.y)/2);
-    vel.add(acc);
     pos.add(vel);
     acc.mult(0);
     
