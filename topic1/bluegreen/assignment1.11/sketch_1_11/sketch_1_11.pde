@@ -20,6 +20,8 @@ void draw() {
   for (Panda panda : pandas) {
     panda.display();
     panda.update();
+    
+    // check for pandas that colide with walls or other pandas.
     panda.checkWallCollision();
     for (Panda otherPanda : pandas) {
       if (otherPanda != panda) {
@@ -29,10 +31,12 @@ void draw() {
   }
 }
 
+// resets the panda array on mouse pressed.
 void mousePressed() {
   reset();
 }
 
+// spawn a new array with random pandas.
 void reset() {
   pandas = new Panda[pandaCount];
   for (int i = 0; i < pandas.length; i++) {
