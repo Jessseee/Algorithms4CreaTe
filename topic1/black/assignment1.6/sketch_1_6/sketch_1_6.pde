@@ -7,7 +7,7 @@ int j = 0;
 
 void setup() {
   bin = "110101";
-  // split array into array of characters.
+  // split string into array of characters.
   spltBin = bin.toCharArray();
   // confert binary abcdef into decimal with the function ((((a*2)+b)*2+c)*2+d)*2+e)*2+f).
   for (int i = 0; i < spltBin.length; i++) {
