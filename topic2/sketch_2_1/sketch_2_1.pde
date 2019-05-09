@@ -1,8 +1,14 @@
+/* Simulates the roll of a six sided dice 100000 times and returns the distribution of the rolls.
+ * Rolls one more dice everytime the processing screen is pressed and prints the new distribution.
+ * by Jonathan Matarazzi and Jesse Visser
+ */
 IntList dice;
 int[] occurrence;
 
 void setup() {
   size(100, 100);
+  textAlign(CENTER);
+  textSize(20);
   //initialize dice array and occurrence array.
   dice = new IntList();
   occurrence = new int[6];
@@ -17,7 +23,10 @@ void setup() {
 }
 
 void draw() {
-  ellipse(width/2, height/2, width/2, height/2);
+  fill(0);
+  ellipse(width/2, height/2, width-10, height-10);
+  fill(255);
+  text("roll dice", width/2, height/2+4);
 }
 
 //append a new random number to the dice array when the mouse is pressed.
