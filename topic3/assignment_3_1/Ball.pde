@@ -24,15 +24,15 @@ class Ball {
     acc.mult(0);
     
     // Bounces off side
-    if ((pos.x > width) || (pos.x < 0)) {
-      vel.x = vel.x * -1;
+    if ((pos.x > width - m*15) || (pos.x < 0)) {
+      vel.x = vel.x * -0.9;
     }
     
     // Bounce off floor
-    if (pos.y > height) {
+    if (pos.y > height - m*15) {
       // dampens when hitting the bottom of the window
       vel.y = vel.y * -0.8; 
-      pos.y = height;
+      pos.y = height - m*15;
     }
   }
   
