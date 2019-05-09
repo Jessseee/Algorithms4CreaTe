@@ -1,10 +1,11 @@
-// Random movement by Perlin noise
-// By Jonathan Matarazzi and Jesse Visser
-// 
-// Based on an example By
-// Daniel Shiffman
-// The Nature of Code
-// http://natureofcode.com
+/* Random movement by Perlin noise
+ * By Jonathan Matarazzi and Jesse Visser
+ * 
+ * Based on an example By
+ * Daniel Shiffman
+ * The Nature of Code
+ * http://natureofcode.com
+ */
 
 float offset = 0.0;
 float offsetIncrement = 0.01; 
