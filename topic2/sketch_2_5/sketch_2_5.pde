@@ -1,14 +1,13 @@
-/* Random movement by Perlin noise
- * By Jonathan Matarazzi and Jesse Visser
- * 
- * Based on an example By
- * Daniel Shiffman
- * The Nature of Code
- * http://natureofcode.com
- */
+// Random movement by Perlin noise
+// By Jonathan Matarazzi
+// 
+// Based on an example By
+// Daniel Shiffman
+// The Nature of Code
+// http://natureofcode.com
 
-float offset = 0.0;
-float offsetIncrement = 0.01; 
+float xoff = 0.0;
+float xincrement = 0.01; 
 
 void setup() {
   size(200,200);
@@ -21,12 +20,14 @@ void draw() {
   fill(0, 10);
   rect(0,0,width,height);
   
-  // Get noise values based on offset and scale it according to the window's width or height
-  float xPos = noise(offset)*width;
-  float yPos = noise(1+offset)*height;
+  //float n = random(0,width);  // Try this line instead of noise
   
-  // With each cycle, increment offset
-  offset += offsetIncrement;
+  // Get a noise value based on xoff and scale it according to the window's width
+  float xPos = noise(xoff)*width;
+  float yPos = noise(1+xoff)*height;
+  
+  // With each cycle, increment xoff
+  xoff += xincrement;
   
   // Draw the ellipse at the value produced by perlin noise
   fill(200);
