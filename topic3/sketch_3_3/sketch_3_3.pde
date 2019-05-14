@@ -1,9 +1,12 @@
+/* lets a user shoot a ball with the speed depending on the mouse distance to the ball.
+ * the ball bounces on the edges of the screen and can be shot again by pressing the left mouse button.
+ * the movement of the ball is framerate independend and uses millis instead.
+ * by Jesse Visser & Jonathan Matarazzi
+ */
 Ball ball;
 
 PVector grav, vec2ball;
-float dist2ball;
-
-float deltaTime = millis();
+float dist2ball, deltaTime;
 long prevTime;
 
 void setup() {
@@ -12,16 +15,17 @@ void setup() {
   // Initialize new ball object and gravity
   ball = new Ball(1.5, new PVector(width/4, height/2), new PVector(0, 0), new PVector(0, 0));
   grav = new PVector(0, 0.9);
+  deltaTime = millis();
 }
 
 // Display and move ball object
 void draw() {
   background(0);
   
+  // find a time constant based on the millis function
   long curTime = millis();
   deltaTime = (curTime - prevTime)/10f;
   prevTime = curTime;
-  println(deltaTime);
   
   // Hold ball in place till shot
   if(ball.shot == false) {
