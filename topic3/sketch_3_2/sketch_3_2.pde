@@ -1,3 +1,7 @@
+/* lets a user shoot a ball with the speed depending on the mouse distance to the ball.
+ * the ball bounces on the edges of the screen and can be shot again by pressing the left mouse button.
+ * by Jesse Visser & Jonathan Matarazzi
+ */
 Ball ball;
 
 PVector grav;

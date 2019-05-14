@@ -1,3 +1,4 @@
+// the ball class draws, bounces and move the ball by applying forces.
 class Ball {
   PVector pos, vel, acc;
   float m;

@@ -1,3 +1,4 @@
+// the ball class draws, bounces and move the ball by applying forces.
 class Ball {
   PVector pos, vel, acc;
   float m, size;
@@ -20,10 +21,10 @@ class Ball {
     ellipse(pos.x, pos.y, size, size);
   }
   
-  void update(float dt) {
+  void update() {
     // change position and reset acceleration
     vel.add(acc);
-    pos.add(vel.copy().mult(dt));
+    pos.add(vel);
     acc.mult(0);
     
     // Bounce off left wall
