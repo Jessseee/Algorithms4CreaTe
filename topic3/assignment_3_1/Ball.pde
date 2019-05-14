@@ -17,6 +17,7 @@ class Ball {
     ellipse(pos.x, pos.y, m*30, m*30);
   }
   
+  // Move the ball by adding acc to vel and vel to pos and resetting acc.
   void update() {
     // change position and reset acceleration
     vel.add(acc);
@@ -36,7 +37,7 @@ class Ball {
     }
   }
   
-  // Apply force by Newton's 2nd law: F = M * A
+  // Apply force with the help of Newton's 2nd law: F = M * A
   void applyForce(PVector force) {
     PVector f = PVector.div(force, m);
     acc.add(f);
