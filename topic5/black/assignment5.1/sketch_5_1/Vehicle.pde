@@ -1,28 +1,31 @@
 class Vehicle {
   PVector pos, vel, acc;
   float r, maxForce, maxSpeed;
+  color vehicleColor;
 
   Vehicle(float x, float y) {
     acc = new PVector(0, 0);
     vel = new PVector(random(-1, 1), random(-1, 1));
     pos = new PVector(x, y);
-    r = 3.0;
+    r = 5.0;
     maxSpeed = 3.0;
     maxForce = 0.05;
+    vehicleColor = color(100, 255, 100);
   }
 
   void display() {
     float theta = vel.heading() + radians(90);
-    fill(255);
-    stroke(255);
+    fill(vehicleColor, 200);
+    stroke(vehicleColor, 255);
     pushMatrix();
       translate(pos.x, pos.y);
       rotate(theta);
-      beginShape(TRIANGLES);
+      beginShape();
         vertex(0, -r*2);
         vertex(-r, r*2);
+        vertex(0, r);
         vertex(r, r*2);
-      endShape();
+      endShape(CLOSE);
     popMatrix();
   }
 
@@ -47,7 +50,7 @@ class Vehicle {
   }
 
   PVector seperate(ArrayList<Vehicle> vehicles) {
-    float desiredSeperation = 25.0f;
+    float desiredSeperation = 25;
     PVector steer = new PVector(0, 0, 0);
     int count = 0;
 
@@ -157,6 +160,18 @@ class Vehicle {
       PVector steer = PVector.sub(desired, vel);
       steer.limit(maxForce);
       applyForce(steer);
+    }
+  }
+  
+  void evadeObstacle(ArrayList<Obstacle> obstacles) {
+    for(Obstacle obstacle : obstacles) {
+      if(dist(obstacle.pos.x, obstacle.pos.y, pos.x, pos.y) < obstacle.size*2) {
+        PVector steer = PVector.add(obstacle.pos.copy().mult(-1), pos);
+        stroke(255, 50, 50, 50);
+        line(obstacle.pos.x, obstacle.pos.y, pos.x, pos.y);
+        steer.limit(maxForce);
+        applyForce(steer);
+      }
     }
   }
 

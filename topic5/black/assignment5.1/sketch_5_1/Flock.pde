@@ -8,6 +8,7 @@ class Flock {
   void move() {
     for(Vehicle vehicle : vehicles) {
       vehicle.move(vehicles);
+      vehicle.evadeObstacle(obstacles);
     }
   }
   
