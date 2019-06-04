@@ -1,8 +1,13 @@
+/* 
+ *
+ */
+
 class Vehicle {
   PVector pos, vel, acc;
   float r, maxForce, maxSpeed;
   color vehicleColor;
-
+  
+  // instantiate vehicle
   Vehicle(float x, float y) {
     acc = new PVector(0, 0);
     vel = new PVector(random(-1, 1), random(-1, 1));
@@ -13,6 +18,7 @@ class Vehicle {
     vehicleColor = color(100, 255, 100);
   }
 
+  // display vehicle
   void display() {
     float theta = vel.heading() + radians(90);
     fill(vehicleColor, 200);
@@ -29,6 +35,7 @@ class Vehicle {
     popMatrix();
   }
 
+  // update pos of vehicle and reset acceleration
   void update() {
     vel.add(acc);
     vel.limit(maxSpeed);
@@ -36,10 +43,12 @@ class Vehicle {
     acc.mult(0);
   }
 
+  // add force to acceleration
   void applyForce(PVector force) {
     acc.add(force);
   }
   
+  // make a PVector directed at a target
   PVector seek(PVector target) {
     PVector desired = PVector.sub(target, pos);
     desired.normalize();
@@ -49,6 +58,7 @@ class Vehicle {
     return steer;
   }
 
+  // seperate vehicles in flock
   PVector seperate(ArrayList<Vehicle> vehicles) {
     float desiredSeperation = 25;
     PVector steer = new PVector(0, 0);
@@ -79,6 +89,7 @@ class Vehicle {
     return steer;
   }
   
+  // align vehicles in flock
   PVector align(ArrayList<Vehicle> vehicles) {
     float neighborDist = 50;
     PVector sum = new PVector(0, 0);
@@ -102,6 +113,7 @@ class Vehicle {
     }
   }
   
+  // keep cohesion within the flock
   PVector cohesion (ArrayList<Vehicle> vehicles) {
     float neighborDist = 50;
     PVector sum = new PVector(0, 0);
@@ -121,6 +133,7 @@ class Vehicle {
     }
   }
 
+  // apply all flocking forces multiplied by arbitrary constant
   void flock(ArrayList<Vehicle> vehicles) {
     PVector sep = seperate(vehicles);  // Seperation
     PVector ali = align(vehicles);  // Alignment
@@ -133,6 +146,7 @@ class Vehicle {
     applyForce(coh);
   }
   
+  // keep vehicle from hitting the edge of the screen
   void evadeEdge() {
     if(pos.x < width/10) {
       PVector desired = new PVector(maxSpeed, vel.y);
@@ -163,18 +177,21 @@ class Vehicle {
     }
   }
   
+  // keep vehicle from hitting obstacles
   void evadeObstacle(ArrayList<Obstacle> obstacles) {
     for(Obstacle obstacle : obstacles) {
-      if(dist(obstacle.pos.x, obstacle.pos.y, pos.x, pos.y) < obstacle.size*2) {
+      float d = dist(obstacle.pos.x, obstacle.pos.y, pos.x, pos.y);
+      if(d < obstacle.size*2) {
         PVector steer = PVector.add(obstacle.pos.copy().mult(-1), pos);
+        steer.mult(1.2);
         stroke(255, 50, 50, 50);
-        line(obstacle.pos.x, obstacle.pos.y, pos.x, pos.y);
         steer.limit(maxForce);
         applyForce(steer);
       }
     }
   }
 
+  // call all functions to move vehicle
   void move(ArrayList<Vehicle> vehicles) {
     display();
     update();
