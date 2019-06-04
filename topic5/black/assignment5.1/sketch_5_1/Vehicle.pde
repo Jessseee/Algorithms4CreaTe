@@ -51,7 +51,7 @@ class Vehicle {
 
   PVector seperate(ArrayList<Vehicle> vehicles) {
     float desiredSeperation = 25;
-    PVector steer = new PVector(0, 0, 0);
+    PVector steer = new PVector(0, 0);
     int count = 0;
 
     for (Vehicle other : vehicles) {
