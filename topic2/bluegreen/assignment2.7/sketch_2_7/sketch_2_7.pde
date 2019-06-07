@@ -1,11 +1,14 @@
-// based on The Coding Train coding challenge #11 and processing noise reference.
+/* based on The Coding Train coding challenge #11 and processing noise reference.
+ * by Jesse Visser and Jonathan Mattarazi
+ */
 
 int w, h, scl, cols, rows;
 float dY;
 float[][] grid;
 
 void setup() {
-  size(900, 600, P3D);
+  fullScreen(P3D);
+  //size(900, 600, P3D);
   w = width;
   h = height;
   scl = 35;
@@ -29,11 +32,8 @@ void draw() {
   rotateX(PI/3);
   translate(-w/2, -h/3);
   
-  // loop through perlin noise
-  dY -= .08;
-  float yoff = dY;
-  
   // set the height for every vertex in the 2d array
+  float yoff = 0;
   for (int y = 0; y < rows; y++) {
     float xoff = 0;
     for (int x = 0; x < cols; x++) {
@@ -43,6 +43,7 @@ void draw() {
     yoff += 0.1;
   }
   
+  // draw the grid shape on the vertexes in the 2d array
   for (int y = 0; y < rows-1; y++) {
     beginShape(TRIANGLE_STRIP);
     for (int x = 0; x < cols; x++) {
@@ -54,10 +55,12 @@ void draw() {
   popMatrix();
 }
 
+// reset landscape on mouse press
 void mousePressed() {
   reset();
 }
 
+// resets landscape by reseeding the noise patern with a random value
 void reset() {
   text("loading...", width/2, 100);
   noiseSeed((int) random(100));
