@@ -11,6 +11,7 @@ class Particle {
   String shape;
   color pColour;
 
+  // Instantiate particle class
   Particle(PVector l, String _shape, color _pColour, float _size) {
     acc = new PVector(0, 0.04);
     vel = new PVector(random(-1, 1), random(-2, 0));
@@ -21,23 +22,26 @@ class Particle {
     size = _size;
   }
 
+  // Move and display particle
   void run() {
     update();
     display();
   }
 
-  // Method to update position
+  // Method to update position of particle
   void update() {
     vel.add(acc);
     pos.add(vel);
     lifespan -= 2.0;
   }
 
-  // Method to display
+  // Method to display particle
   void display() {
     stroke(pColour, lifespan);
     strokeWeight(2);
     fill(pColour, lifespan-30);
+    
+    // switch for the shape of the particle
     switch(shape) {
       case "round" :
         ellipse(pos.x, pos.y, size, size);
@@ -55,7 +59,7 @@ class Particle {
     }
   }
 
-  // Is the particle still useful?
+  // Boolean to tell if the particle is expired
   boolean isDead() {
     if (lifespan < 0.0) {
       return true;
