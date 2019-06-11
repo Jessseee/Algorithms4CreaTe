@@ -1,8 +1,12 @@
+/* Visualization of a rotary mass, spring, damper system
+ * By Jesse Visse & Jonathan Matarazzi
+ */
+
 RotMSDSystem system;
 
-// Create a mass, spring, damper object
+// Create a rotary mass, spring, damper object
 void setup() {
-  system = new RotMSDSystem(0.2, 50, 10);
+  system = new RotMSDSystem(0.2, 50, 10, PI);
   size(1000,1000);
 }
 

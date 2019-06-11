@@ -1,15 +1,15 @@
+//A class for visualization of a rotary mass, spring, damper object
 class RotMSDSystem {
-  float dampConst, springConst, mass;
-  
-  float rotation = PI;
+  float dampConst, springConst, mass, rotation;
   float velocity = 0;
   float acceleration = 0;
 
-  // instantiate mass, spring, damper constants
-  RotMSDSystem(float dampConst, float springConst, float mass) {
+  // instantiate mass, spring, damper constants and initial rotation
+  RotMSDSystem(float dampConst, float springConst, float mass, float rotation) {
     this.dampConst = dampConst;
     this.springConst = springConst;
     this.mass = mass;
+    this.rotation = rotation;
   }
 
   // calculate torque and apply angular acceleration and velocity
