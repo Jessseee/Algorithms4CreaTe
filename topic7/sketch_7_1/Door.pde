@@ -1,3 +1,5 @@
+// This class handles display and interactions of doors
+
 class Door {
   float x, y, w, h;
   boolean isOpen, isLocked;
@@ -43,15 +45,12 @@ class Door {
 
   void pressed(float x, float y) {
     if ((this.x - w/2 < x) && (x < this.x + w/2) && (this.y - h/2 < y) && (y < this.y + h/2)) {
-      if (!isLocked) {
-        isOpen = !isOpen;
-      } else if (inventory.hasItem("key")) {
+      if (!isLocked) isOpen = !isOpen;
+      else if (inventory.hasItem("key")) {
         message = new Message("the door is unlocked!", 1000, width/2, height/2);
         inventory.removeItem("key");
         isLocked = false;
-      } else {
-        message = new Message("this door is locked", 1000, width/2, height/2);
-      }
+      } else message = new Message("this door is locked", 1000, width/2, height/2);
     }
   }
 }

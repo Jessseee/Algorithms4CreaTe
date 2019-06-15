@@ -4,6 +4,7 @@
 class Room1_1 extends Room {  
   String roomName;
 
+  // initialize this particular room
   Room1_1(RoomState[] nextRooms, RoomState prevRoom, String roomName) {
     super(nextRooms, prevRoom, roomName); // parce data to parent room class
     // initialize this room's furniture

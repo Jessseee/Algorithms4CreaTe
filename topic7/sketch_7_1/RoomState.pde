@@ -1,3 +1,4 @@
+// all possible rooms
 enum RoomState {
   ROOM_START, 
   ROOM_1, 

@@ -1,3 +1,5 @@
+// class to handle display and interactions of rooms
+
 class Room {
   RoomState[] nextRooms;
   RoomState nextRoom;
@@ -17,9 +19,7 @@ class Room {
     furniture = new ArrayList<Furniture>();
     arrow = new ReturnArrow(width/2, height-height/12, width/15);
     doors = new Door[nextRooms.length];
-    for (int i = 0; i < doors.length; i++) {
-      doors[i] = new Door(width/(doors.length*2) + width/doors.length * i, doorY, doorSize);
-    }
+    for (int i = 0; i < doors.length; i++) doors[i] = new Door(width/(doors.length*2) + width/doors.length * i, doorY, doorSize);
     this.roomName = roomName;
     this.reset();
   }
@@ -46,6 +46,7 @@ class Room {
   }
 
   void displayWalls() {
+    // switch structure to change the shape of the room depending on the amount of doors it contains
     switch(doors.length) {      
     case 1 : 
       line(100, ground, width-100, ground); 
@@ -76,45 +77,27 @@ class Room {
 
   void display() {
     displayWalls();
-    for (Door door : doors) {
-      door.display();
-    }
-    for (Furniture furniture : furniture) {
-      furniture.display();
-    }
+    for (Door door : doors) door.display();
+    for (Furniture furniture : furniture) furniture.display();
+    if (prevRoom != null) arrow.display();
     fill(0);
     textSize(height/20);
     text(roomName, width/2, height/8);
   }
 
-  void update() {
-    for (int i = 0; i < doors.length; i++) {
-      if (doors[i].isOpen) {
-        goToRoom(nextRooms[i]);
-      }
-    }
-    if (prevRoom != null) {
-      arrow.display();
-      if (arrow.isPressed) {
-        goToRoom(prevRoom);
-      }
-    }
+  void changeRoom() {
+    for (int i = 0; i < doors.length; i++) if (doors[i].isOpen) goToRoom(nextRooms[i]);
+    if (prevRoom != null && arrow.isPressed) goToRoom(prevRoom);
   }
 
   void reset() {
-    for (Door door : doors) {
-      door.isOpen = false;
-    }
+    for (Door door : doors) door.isOpen = false;
     arrow.isPressed = false;
   }
 
-  void handleMousePress(float x, float y) {
-    for (Door door : doors) {
-      door.pressed(x, y);
-    }
-    for (Furniture furniture : furniture) { 
-      furniture.pressed(x, y);
-    }
+  void handleMousePress(float x, float y, Inventory inventory) {
+    for (Door door : doors) door.pressed(x, y);
+    for (Furniture furniture : furniture) furniture.pressed(x, y, inventory);
     arrow.pressed(x, y);
   }
 }
