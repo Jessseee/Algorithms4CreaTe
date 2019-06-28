@@ -19,6 +19,7 @@ class Particle {
     int x = floor(pos.x / CELL_SIZE);
     int y = floor(pos.y / CELL_SIZE);
     int index = x + y * GRID_WIDTH;
+    index=constrain(index,0,GRID_WIDTH*GRID_HEIGHT-1);
     PVector force = flowfield.getVector(index);
     applyForce(force);
   }
