@@ -1,3 +1,5 @@
+// class to display and keep track of the player's inventory
+
 class Inventory {
   ArrayList<String> items;
   float x, y;
@@ -18,18 +20,13 @@ class Inventory {
       fill(0);
       textAlign(LEFT, CENTER);
       text("Inventory :", x-25, y-10);
-      if (items.size() == 0) {
-        text("empty", x+30, y-10);
-      } else {
-        for (int i = 0; i < items.size(); i++) {
-          text("• " + items.get(i), x-20, 30+y+20*(i-1));
-        }
-      }
+      if (items.size() == 0) text("empty", x+30, y-10); 
+      else for (int i = 0; i < items.size(); i++) text("• " + items.get(i), x-20, 30+y+20*(i-1));
       textAlign(CENTER, CENTER);
       rectMode(CENTER);
     }
   }
-
+  
   void addItem(String item) {
     message = new Message("you found: " + item, 1000, width/2, height/2);
     items.add(item);

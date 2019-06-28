@@ -14,10 +14,14 @@ void setup() {
   size(900, 500);
   rectMode(CENTER);
   textAlign(CENTER, CENTER);
-  
-  //Map every room to a roomstate to be able to easely change between rooms.
+
+  // map every room to a roomstate to be able to easely change between rooms.
   Map<RoomState, Room> rooms = new HashMap<RoomState, Room>();
 
+  // the following sets up the structure of the state machine
+  // it matches the names of the roomStates to the corresponding room
+  // then defines the rooms that come before and after
+  // and lastly it defines the name of the room
   rooms.put(RoomState.ROOM_START, new RoomStart(new RoomState[] {RoomState.ROOM_1, RoomState.ROOM_2}, null, "Lobby"));
   rooms.put(RoomState.ROOM_1, new Room1(new RoomState[] {RoomState.ROOM_1_1, RoomState.ROOM_1_2, RoomState.ROOM_1_3}, RoomState.ROOM_START, "Left Wing"));
   rooms.put(RoomState.ROOM_1_1, new Room1_1(new RoomState[] {}, RoomState.ROOM_1, "Room 1"));
@@ -33,6 +37,7 @@ void setup() {
   inventory = new Inventory();
 }
 
+// display the room, message and inventory
 void draw() {
   stateMachine.doAvailableTransitions();
   stateMachine.drawRoom();
@@ -41,11 +46,10 @@ void draw() {
 }
 
 void mousePressed() {
-  stateMachine.handleMousePress(mouseX, mouseY);
+  stateMachine.handleMousePress(mouseX, mouseY, inventory);
 }
 
+// toggle the display of the inventory when spacebar is pressed
 void keyPressed() {
-  if(key == ' ') {
-    inventory.toggleDisplay();
-  }
+  if (key == ' ') inventory.toggleDisplay();
 }

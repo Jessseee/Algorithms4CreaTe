@@ -1,3 +1,5 @@
+// class to handle display and interactions of arrow to return to previous screen
+
 class ReturnArrow {
   float x, y, w, h;
   boolean isPressed;
@@ -26,8 +28,6 @@ class ReturnArrow {
   }
 
   void pressed(float x, float y) {
-    if ((this.x - w/2 < x) && (x < this.x + w/2) && (this.y - h/2 < y) && (y < this.y + h/2)) {
-      isPressed = !isPressed;
-    }
+    if ((this.x - w/2 < x) && (x < this.x + w/2) && (this.y - h/2 < y) && (y < this.y + h/2)) isPressed = !isPressed;
   }
 }
