@@ -3,8 +3,8 @@ class RotMSDSystem {
   float stickLength;
   float speed;
 
-  float dampConst = 0.1;
-  float springConst = 100;
+  float dampConst = 0.05;
+  float springConst = 200;
   float mass = 10;
 
   float rotation = 0.1;
@@ -22,17 +22,18 @@ class RotMSDSystem {
   }
   
   void update(float velNeighbour, float forceNeighbour) {
-    float realForce = forceNeighbour-3*force;
-    acceleration = realForce/mass;
-    velocity+=speed*acceleration;
-    rotation+=speed*velocity;
-    
-    
    
     float torque = 1/springConst*rotation;
-    float friction = dampConst*(velocity-velNeighbour);
+    float friction = dampConst*velocity;
     
     force = torque+friction;
+    
+    float realForce = forceNeighbour-force;
+    acceleration = realForce/mass;
+    velocity+=speed*acceleration;
+    rotation+=velocity-velNeighbour;
+    
+    
   }
   
   void display() {

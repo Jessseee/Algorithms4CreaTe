@@ -1,10 +1,18 @@
-class System {
+class Grass {
   ArrayList<RotMSDSystem> subSystems;
+  PVector pos;
+  float grassWidth;
+  
 
-  System(int parts) {
+  Grass(PVector position, int parts, float grassHeight, float grassWidth) {
+    this.pos = position;
+    this.grassWidth = grassWidth;
     subSystems = new ArrayList<RotMSDSystem>();
+    float widthModifier = grassWidth/parts;
     for (int i = 0; i< parts; i++) {
-      subSystems.add(new RotMSDSystem((height/2-20)/parts, PI/parts, parts));
+      float lowerWidth = grassWidth-i*widthModifier;
+      float higherWidth = grassWidth-(i+1)*widthModifier;
+      subSystems.add(new RotMSDSystem(grassHeight/parts, PI/parts, parts, lowerWidth, higherWidth));
     }
   }
 
@@ -17,12 +25,17 @@ class System {
   }
 
   void display() {
+    strokeWeight(0);
     pushMatrix();
-    translate(width/2, height/2);
+    translate(pos.x, pos.y);
     rotate(PI);
     for (RotMSDSystem subSystem : subSystems) {
       subSystem.display();
     }
     popMatrix();
+  }
+  
+  void addForce(float force) {
+    subSystems.get(subSystems.size()-1).addForce(force);
   }
 }

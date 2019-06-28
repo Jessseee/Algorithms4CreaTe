@@ -1,7 +1,7 @@
 System system;
 
 void setup() {
-  system = new System(5);
+  system = new System(10);
   size(1000,1000);
 }
 

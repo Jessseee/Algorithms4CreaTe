@@ -11,7 +11,7 @@ void setup() {
   xBorder = 300;
   yBorder = 200;
   minSize = 10;
-  maxSize = 100;
+  maxSize = height/6;
   fullScreen();
   colorMode(HSB);
   background(255);
@@ -60,5 +60,5 @@ void draw() {
 
 // toggle the generation of dots by clicking on the screen
 void mousePressed() {
-  running = (running == true) ? false : true;
+  running = !running;
 }
