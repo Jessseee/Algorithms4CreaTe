@@ -1,9 +1,11 @@
+// class to display and update particle
+
 class Particle {
   PVector pos, vel, acc;
-  float maxSpeed = 1;
-  float size = CELL_SIZE/2;
-  
+  float maxSpeed;
+
   Particle() {
+    maxSpeed = 1;
     this.pos = new PVector(random(0, width), random(0, height));
     this.vel = new PVector(0, 0);
     this.acc = new PVector(0, 0);
@@ -12,25 +14,28 @@ class Particle {
   void run() {
     display();
     update();
-    evadeEdge();
+    loopEdge();
   }
-  
+
+  // apply a force based on the vector in the current flow field cell
   void follow(Flowfield flowfield) {
     int x = floor(pos.x / CELL_SIZE);
     int y = floor(pos.y / CELL_SIZE);
     int index = x + y * GRID_WIDTH;
-    index=constrain(index,0,GRID_WIDTH*GRID_HEIGHT-1);
+    index = constrain(index, 0, GRID_WIDTH*GRID_HEIGHT-1);
     PVector force = flowfield.getVector(index);
     applyForce(force);
   }
-  
+
+  // display particle
   void display() {
-    stroke(0, 100);
+    fill(40, 255, 255);
     strokeWeight(10);
-    fill(0);
-    ellipse(pos.x, pos.y, size, size);
+    stroke(45, 200, 255, 100);
+    ellipse(pos.x, pos.y, CELL_SIZE, CELL_SIZE);
   }
   
+  // update velocity and position and reset acceleration
   void update() {
     vel.add(acc);
     vel.limit(maxSpeed);
@@ -38,11 +43,13 @@ class Particle {
     acc.mult(0);
   }
   
+  // apply a force by adding it to the acceleration
   void applyForce(PVector force) {
     acc.add(force);
   }
   
-  void evadeEdge() {
+  // move particle from one side of the screen to the other, when moving over the edge of the screen
+  void loopEdge() {
     if (pos.x > width) pos.x = 0;
     if (pos.x < 0) pos.x = width;
     if (pos.y > height) pos.y = 0;
