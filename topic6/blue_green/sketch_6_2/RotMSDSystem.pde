@@ -1,3 +1,4 @@
+//A class for a single mass spring damper system
 class RotMSDSystem {
   
   float stickLength;
@@ -21,6 +22,8 @@ class RotMSDSystem {
     speed = 1;
   }
   
+  
+  //Calculate the new rotation using the current state and the force and velocity of its neigbours
   void update(float velNeighbour, float forceNeighbour) {
    
     float torque = 1/springConst*rotation;
@@ -36,16 +39,20 @@ class RotMSDSystem {
     
   }
   
+  
+  //Display the system
   void display() {
     rotate(rotation);
     line(0,0,0,stickLength);
     translate(0,stickLength);
   }
   
+  //Get the current force
   float getForce() {
     return force;
   }
   
+  //Get the current velocity
   float getVel() {
     return velocity;
   }

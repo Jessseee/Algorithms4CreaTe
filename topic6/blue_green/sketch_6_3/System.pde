@@ -1,3 +1,4 @@
+//A class that manages multiple mass spring damper systems and looks like grass
 class Grass {
   ArrayList<RotMSDSystem> subSystems;
   PVector pos;
@@ -9,6 +10,7 @@ class Grass {
     this.grassWidth = grassWidth;
     subSystems = new ArrayList<RotMSDSystem>();
     float widthModifier = grassWidth/parts;
+    //create the individual mass sprig dampers systems and calculate the correct width and height for them
     for (int i = 0; i< parts; i++) {
       float lowerWidth = grassWidth-i*widthModifier;
       float higherWidth = grassWidth-(i+1)*widthModifier;
@@ -17,6 +19,7 @@ class Grass {
   }
 
   void update() {
+    //Update all mass spring damper systems and give them the force and velocity of their neighbours
     subSystems.get(0).update(0, subSystems.get(1).getForce());
     for (int i = 1; i < subSystems.size()-1; i++) {
       subSystems.get(i).update(subSystems.get(i-1).getVel(), subSystems.get(i+1).getForce());
@@ -25,6 +28,7 @@ class Grass {
   }
 
   void display() {
+    //display all individual pieces of grass
     strokeWeight(0);
     pushMatrix();
     translate(pos.x, pos.y);
@@ -35,6 +39,7 @@ class Grass {
     popMatrix();
   }
   
+  //Apply a force to the top piece of grass
   void addForce(float force) {
     subSystems.get(subSystems.size()-1).addForce(force);
   }

@@ -1,3 +1,4 @@
+//A class for a single rotary mass spring damper system that looks like grass
 class RotMSDSystem {
   
   float stickLength;
@@ -28,6 +29,7 @@ class RotMSDSystem {
     this.higherWidth = higherWidth;
   }
   
+  //Calculate the new rotation using the current state and the force and velocity of its neigbours
   void update(float velNeighbour, float forceNeighbour) {
    
     float torque = 1/springConst*rotation;
@@ -44,6 +46,7 @@ class RotMSDSystem {
     
   }
   
+  //Display the grass piece
   void display() {
     fill(0,255,0);
     strokeWeight(0);
@@ -63,14 +66,17 @@ class RotMSDSystem {
     //line(0,0,0,stickLength);
   }
   
+  //Get the current force
   float getForce() {
     return force;
   }
   
+  //Get the current velocity
   float getVel() {
     return velocity;
   }
   
+  //Apply force to this piece
   void addForce(float _force) {
     forceToAdd = _force;
   }
